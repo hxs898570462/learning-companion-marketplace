@@ -1,14 +1,14 @@
 {
   "name": "hanxi-learning",
   "interface": {
-    "displayName": "HXS Learning"
+    "displayName": "Hanxi Learning"
   },
   "plugins": [
     {
       "name": "learning-companion",
       "source": {
         "source": "local",
-        "path": "./"
+        "path": "./plugins/learning-companion"
       },
       "policy": {
         "installation": "AVAILABLE",
