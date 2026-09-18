@@ -1,0 +1,6 @@
+interface:
+  display_name: "Lecture 理论学习"
+  short_description: "分段理解人工智能与数学讲义，先尝试再反馈，整理可回查的公式与知识笔记"
+  default_prompt: "使用 $learn-lecture 帮我理解这份讲义，先给提示让我尝试，再根据反馈讲解并整理 Markdown 笔记。"
+policy:
+  allow_implicit_invocation: true
