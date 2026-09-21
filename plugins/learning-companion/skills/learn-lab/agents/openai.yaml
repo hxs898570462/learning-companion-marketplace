@@ -1,6 +1,6 @@
 interface:
   display_name: "Lab 课程实践"
-  short_description: "对照讲义要求逐步完成实验，通过实际结果排查问题并理解对应的理论知识"
-  default_prompt: "使用 $learn-lab 阅读这些讲义、代码和数据，先给提示让我完成一个步骤，再根据我的结果分析并回答课程问题。"
+  short_description: "在聊天中双语带做课程实验，完成答疑并收到指令后再生成详细实验文档"
+  default_prompt: "使用 $learn-lab 阅读这些讲义、代码和数据，在聊天中以中英对照方式带我一步一步完成实验、分析实际结果并答疑；先不要生成文件，等我明确说‘生成 Lab Markdown 总结’后再整理详细文档。"
 policy:
   allow_implicit_invocation: true
