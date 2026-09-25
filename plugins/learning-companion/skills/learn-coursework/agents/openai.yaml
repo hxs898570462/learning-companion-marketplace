@@ -1,0 +1,6 @@
+interface:
+  display_name: "CourseWork 作业辅导"
+  short_description: "读懂评分标准与考察意图，检查理解并逐轮改进课程作业"
+  default_prompt: "使用 $learn-coursework 阅读这份 CW 的题目、评分标准和考纲，在聊天中检查我的理解并指导我逐轮改进；先不要创建或修改文件，遇到不清楚的规则请建议我向老师确认。"
+policy:
+  allow_implicit_invocation: true

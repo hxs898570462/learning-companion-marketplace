@@ -1,7 +1,7 @@
 {
   "name": "learning-companion",
-  "version": "0.2.1",
-  "description": "Interactive AI and mathematics learning workflows for lectures, labs, and small projects.",
+  "version": "0.3.0",
+  "description": "Interactive AI and mathematics learning workflows for lectures, labs, coursework, and small projects.",
   "author": {
     "name": "Personal"
   },
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "Learning Companion",
     "shortDescription": "Learn AI and mathematics through guided practice.",
-    "longDescription": "Guided workflows for explaining course lectures, completing labs step by step, and turning AI or mathematics theory into small validated projects.",
+    "longDescription": "Guided workflows for learning lectures, completing labs, improving assessed coursework against rubrics, and building small validated projects.",
     "developerName": "Personal",
     "category": "Education",
     "capabilities": [
@@ -19,6 +19,7 @@
     "defaultPrompt": [
       "Help me understand this lecture with hints first.",
       "Guide me through this lab step by step.",
+      "Help me understand this coursework rubric and improve my draft.",
       "Recommend a small project for this theory topic."
     ]
   }

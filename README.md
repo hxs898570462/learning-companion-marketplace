@@ -2,10 +2,11 @@
 
 Personal Codex marketplace containing the `learning-companion` plugin.
 
-The plugin bundles three AI and mathematics learning workflows:
+The plugin bundles four AI and mathematics learning workflows:
 
 - `learn-lecture` for bilingual, chat-first lecture study; it creates detailed Markdown notes only after the learner finishes questions and explicitly requests them.
 - `learn-lab` for bilingual, step-by-step lab work in chat; it creates the detailed lab record only after completion and an explicit request.
+- `learn-coursework` for understanding coursework rubrics, checking subject knowledge, and improving drafts in chat; it writes files only on an explicit later request.
 - `learn-project` for turning theory into a small validated project.
 
 ## Install
