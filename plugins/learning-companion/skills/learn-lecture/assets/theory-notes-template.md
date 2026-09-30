@@ -54,8 +54,10 @@ Explain the same intuition and its limits with comparable detail.
 
 State the formal definition or theorem and all relevant assumptions with equivalent precision.
 
-| 符号 | 含义 | 形状／单位 | 约束或备注 |
-|---|---|---|---|
+先说明用于解释公式的具体情境，再填写符号表。
+
+| 符号 | 数学含义 | 在该情境中的现实对应／取得方式 | 形状／单位 | 约束或备注 |
+|---|---|---|---|---|
 
 重要公式使用独立数学块：
 
@@ -63,7 +65,7 @@ $$
 \text{formula}
 $$
 
-紧接公式解释每一项的含义、公式表达的关系、何时可以使用以及常见误用。
+紧接公式解释每一项的含义、公式表达的关系、变量变化对结果的影响、何时可以使用以及常见误用。抽象变量没有直接的现实对应时，说明其模型角色和类比限度。
 
 ### 4.4 推导或关键逻辑 | Derivation or Key Reasoning
 
@@ -77,10 +79,12 @@ Explain the same logical chain step by step, including the justification and ass
 
 ### 4.5 例子、反例与边界 | Examples, Counterexamples, and Edge Cases
 
-至少给一个完整算例或应用例子，展示从条件检查到结论解释的全过程。适用时加入反例或边界情形，说明它揭示了什么限制。
+对核心概念或重要公式，保留一个建立直觉的具体例子和一个有实际用途的应用例子；可用同一情境贯穿，但两者应回答不同问题。展示“情境 → 变量与现实量的对应 → 条件检查 → 代入或推理 → 结果的现实含义”，并解释改变关键变量会发生什么。适用时加入反例或边界情形，说明它揭示了什么限制；明确区分材料实例与 AI 补充的假设情境。
 
 - **例子说明（中文）：**
 - **Example explanation (English):**
+- **实际应用及其要回答的问题（中文）：**
+- **Practical use and the question it answers (English):**
 - **计算／代码／图示：**
 - **结论与限制（中文）：**
 - **Conclusion and limitations (English):**
