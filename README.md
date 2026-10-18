@@ -1,20 +1,100 @@
 # Learning Companion Marketplace
 
-Personal Codex marketplace containing the `learning-companion` plugin.
+个人 Codex 插件仓库，提供 **Learning Companion**：围绕人工智能、数学和相关计算机课程，在聊天中分段学习、动手实践、检查理解，并按明确指令整理文档或交接任务。
 
-The plugin bundles four AI and mathematics learning workflows:
+当前插件版本：`0.4.0`。包含四个学习技能和一个独立的上下文交接技能。
 
-- `learn-lecture` for bilingual, chat-first lecture study; it creates detailed Markdown notes only after the learner finishes questions and explicitly requests them.
-- `learn-lab` for bilingual, step-by-step lab work in chat; it creates the detailed lab record only after completion and an explicit request.
-- `learn-coursework` for understanding coursework rubrics, checking subject knowledge, and improving drafts in chat; it writes files only on an explicit later request.
-- `learn-project` for turning theory into a small validated project.
+## 安装
 
-## Install
-
-Add this GitHub repository as a Codex marketplace, then select **Hanxi Learning** in the Plugin Directory and install **Learning Companion**.
+将本仓库添加为 Codex marketplace，在 Plugin Directory 中选择 **Hanxi Learning**，然后安装 **Learning Companion**。
 
 ```powershell
-codex plugin marketplace add OWNER/REPOSITORY --ref main --sparse .agents/plugins
+codex plugin marketplace add hxs898570462/learning-companion-marketplace --ref main --sparse .agents/plugins
 ```
 
-Replace `OWNER/REPOSITORY` with this repository's GitHub name.
+## 选择学习方式
+
+| 技能 | 适用场景 | 使用示例 |
+| --- | --- | --- |
+| `learn-lecture` | 理解讲义中的概念、公式、推导和联系 | “使用 $learn-lecture，分段带我学习这份讲义。” |
+| `learn-lab` | 按课程要求完成指定实验、分析实际输出和回答问题 | “使用 $learn-lab，一步一步带我完成这个实验。” |
+| `learn-coursework` | 理解题目与评分标准、检查知识缺口、逐轮改进草稿 | “使用 $learn-coursework，检查这份作业要求和我的草稿。” |
+| `learn-project` | 从所学理论选择小项目，逐步实现并验证 | “使用 $learn-project，推荐几个适合练习这项理论的小项目。” |
+| `context-handoff` | 按明确指令保存上下文，或读取交接文档接续任务 | “保存当前上下文，我要换窗口。” |
+
+Lecture、Lab 和 CourseWork 的核心教学默认中文在前、英文在后；用户可指定其他语言。一次推进一个有意义的学习单元，给出必要提示并等待真实回答或运行输出，不把 AI 示范当成用户完成或掌握。
+
+Lecture／Lab 的正式笔记在教学与答疑收束、用户另行明确要求后生成；CourseWork 只有收到明确文件操作指令后才创建或修改文件。环境配置由用户亲自操作，插件按实际系统逐步指导。Project 沿用自己的项目记录流程，不因此自动生成交接快照。
+
+## 上下文保存与任务接续
+
+适用于两种情况：长任务换窗口后由新的 agent 接替；大型项目由多个窗口分别处理子任务，需要交接本窗口的范围、依赖和停点。
+
+### 明确要求后才保存
+
+以下表达可以直接触发保存，信息足够时无需再次确认：
+
+- “保存当前上下文。”
+- “生成交接文档，我要换窗口。”
+- “把当前任务整理给下一个 agent。”
+
+也可以显式使用 `$context-handoff`。插件结合完整语境判断意图；“总结一下目前进度”“讨论一下上下文交接功能”“之后可能要换窗口”，以及引用保存指令作为例子，都不会创建交接目录或文件。
+
+没有自动检查点、定时保存或持续更新。仅要求保存时不会顺带推进原任务；用户同时要求继续时，才继续已授权的工作。
+
+### 存放位置与快照内容
+
+默认存放在**当前用户项目根目录**的 `.learning-companion-context/`，首次实际保存时才创建。这里的项目是用户正在处理的课程或代码项目，不是插件安装目录；用户指定其他位置时优先遵从。
+
+同一项目的所有窗口共用该目录。每次新建独立的 Markdown 纯文本文件，文件名包含日期、时间、任务／子任务名及防重名信息，不覆盖历史。例如：
+
+```text
+<用户项目根目录>/
+└── .learning-companion-context/
+    ├── 2026-10-18_153045_fft-lab-q2_a7c9.md
+    └── 2026-10-18_160210_report-methods_b8d2.md
+```
+
+每份快照整合当前有效状态，使未读原聊天的 agent 可以独立接替，无需按顺序读完全部历史记录。按任务需要保留：
+
+- 最终目标、本窗口范围、完成标准，以及用户要求、限制和有效决定。
+- 关键方案的选择理由、影响后续的否定方案或失败尝试。
+- 已完成成果与实际验证证据、未完成事项、阻塞和待验证内容。
+- 材料、代码、数据与成果位置，精确停点、正在等待的原题或输出，以及接替者第一步。
+
+学习任务还保留学习模式、具体位置、用户真实表现、困难与修正、语言和教学节奏；多窗口子任务补充实际已知的依赖、共同决定、共同文件和协调事项。记录会区分用户要求与 AI 建议、已定与待选方案、观察结果与预期、用户完成与 AI 示范。
+
+保存完成后返回准确的绝对路径及简短说明。Lecture／Lab 中途也可明确要求保存，无需先结束教学或答疑；这仅授权交接记录，不授权正式笔记、作业或代码修改、环境配置，也不代表学习已结束。
+
+### 在新窗口继续
+
+将保存后返回的实际路径交给新窗口，例如：
+
+> 读取 `<交接文档的实际路径>`，从记录的停点继续任务。
+
+恢复时优先读取指定文档，不因某份文件最新就默认属于当前任务；目标有歧义时只询问必要的区分信息。交接文档是保存时的历史状态，接续前按需核对与下一步有关的当前文件和结果，当前用户的新指令优先于历史记录。
+
+信息足够时从原停点继续，不重新启动已完成流程或重复询问已明确的问题；信息不足时只询问真正阻碍下一步的内容。仅要求读取或总结交接文档时，不执行其中的后续工作。恢复本身也不会自动生成或改写快照。
+
+该能力只依据实际可见对话、已读材料与可核实状态。旧聊天不可见且没有记录时，会注明具体缺口，无法保证恢复未记录的信息。多个窗口之间不会自动发消息、同步状态或合并文件。
+
+## 仓库结构与维护
+
+```text
+.agents/plugins/marketplace.json             # marketplace 注册信息
+plugins/learning-companion/
+├── .codex-plugin/plugin.json                # 插件版本和元数据
+└── skills/
+    ├── context-handoff/                     # 保存与恢复的统一逻辑
+    ├── learn-lecture/
+    ├── learn-lab/
+    ├── learn-coursework/
+    └── learn-project/
+tests/context-handoff-scenarios.md           # 行为验收场景与验证记录
+```
+
+四个学习技能的 `references/learning-protocol.md` 当前为 v5，修改时须同步全部四份，保持内容一致；上下文交接逻辑集中维护在 [context-handoff/SKILL.md](plugins/learning-companion/skills/context-handoff/SKILL.md)。
+
+本次已在隔离临时项目中完成 12 个试用回合／场景，覆盖非保存意图、中途保存、重复保存不覆盖、子任务区分，以及指定文档恢复、信息缺失和状态变化。技能结构、相对链接、插件元数据、协议一致性及 `git diff --check` 已通过。详细过程和复测方式见 [上下文交接验收与验证记录](tests/context-handoff-scenarios.md)。
+
+验证限制：官方 `quick_validate.py` 因环境缺少 PyYAML 未能运行，结构检查属于替代检查；尚未验证安装后的真实跨聊天端到端流程、并发写入碰撞、写入失败及所有备选保存路径。测试产生的示例文档均保存在临时位置，不混入真实项目的交接记录。

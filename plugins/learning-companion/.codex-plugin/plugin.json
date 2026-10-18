@@ -1,7 +1,7 @@
 {
   "name": "learning-companion",
-  "version": "0.3.4",
-  "description": "Interactive AI and mathematics learning workflows for lectures, labs, coursework, and small projects.",
+  "version": "0.4.0",
+  "description": "Interactive AI and mathematics learning workflows with explicit context saving and task resumption.",
   "author": {
     "name": "Personal"
   },
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "Learning Companion",
     "shortDescription": "Learn AI and mathematics through guided practice.",
-    "longDescription": "Guided workflows for learning lectures, completing labs, improving assessed coursework against rubrics, and building small validated projects.",
+    "longDescription": "Guided workflows for lectures, labs, coursework, and small projects, with on-request context snapshots and task resumption across chats.",
     "developerName": "Personal",
     "category": "Education",
     "capabilities": [
